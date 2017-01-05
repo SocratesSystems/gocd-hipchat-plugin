@@ -77,15 +77,21 @@ class HipChatNotificationTaskExecutor extends TaskExecutor {
     val hipchatMsg = {
       notificationType.toLowerCase match {
         case "success" =>
-          ("color" -> "green") ~
+          ("from" -> "Go") ~
+            ("notify" -> true) ~
+            ("color" -> "green") ~
             ("message" -> replaceEnvVars(msg.getOrElse(defaultPassed), environmentVars)) ~
             ("message_format" -> "text")
         case "failure" =>
-          ("color" -> "red") ~
+          ("from" -> "Go") ~
+            ("notify" -> true) ~
+            ("color" -> "red") ~
             ("message" -> replaceEnvVars(msg.getOrElse(defaultFailed), environmentVars)) ~
             ("message_format" -> "text")
         case _ =>
-          ("message" -> replaceEnvVars(msg.getOrElse(defaultOther), environmentVars)) ~
+          ("from" -> "Go") ~
+            ("notify" -> true) ~
+            ("message" -> replaceEnvVars(msg.getOrElse(defaultOther), environmentVars)) ~
             ("message_format" -> "text")
       }
     }
